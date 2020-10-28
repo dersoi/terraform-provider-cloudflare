@@ -37,6 +37,7 @@ func resourceCloudflareFilter() *schema.Resource {
 				Required: true,
 				DiffSuppressFunc: func(k, old, new string, d *schema.ResourceData) bool {
 					return strings.TrimSpace(new) == old
+					ValidateFunc: cloudflare.filter.ValidateFilterExpression(expression)
 				},
 				ValidateFunc: func(val interface{}, key string) (warns []string, errs []error) {
 					// Validating the filter expression doesn't support API tokens (yet!)
